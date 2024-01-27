@@ -76,11 +76,8 @@ public class PlayerMovement : MonoBehaviour
     private void UpdateAnimationState()
     {
         MovementState state;
-        if (isDashing)
-        {
-            state = MovementState.dashing;
-        }
-        else if (dirX > 0f)
+
+        if (dirX > 0f)
         {
             state = MovementState.running;
             sprite.flipX = true;
@@ -110,7 +107,10 @@ public class PlayerMovement : MonoBehaviour
         {
             state = MovementState.falling;
         }
-
+        if (isDashing)
+        {
+            state = MovementState.dashing;
+        }
         anim.SetInteger("state", (int)state);
     }
 
