@@ -10,14 +10,18 @@ public class PlayerMovement : MonoBehaviour
     private Animator anim;
     private int jumpsRemaining = 2; // Set to 2 for double jump
     private bool canDoubleJump = true;
+    private bool isDashing = false;
+    private int Direction = 1;
 
     [SerializeField] private LayerMask jumpableGround;
 
     private float dirX = 0f;
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float jumpForce = 14f;
+    [SerializeField] private float dashSpeed = 15f;
+    [SerializeField] private float dashDuration = 0.1f;
 
-    private enum MovementState { idle, running, jumping, falling, doublejump }
+    private enum MovementState { idle, running, jumping, falling, doublejump, dashing }
 
 
     // Start is called before the first frame update
@@ -45,8 +49,28 @@ public class PlayerMovement : MonoBehaviour
             canDoubleJump = false;
             jumpsRemaining--;
         }
+        if (Input.GetButtonDown("Dash"))
+        {
+            StartCoroutine(Dash());
+        }
+
 
         UpdateAnimationState();
+    }
+    private IEnumerator Dash()
+    {
+        isDashing = true;
+        float startTime = Time.time;
+
+        while (Time.time < startTime + dashDuration)
+        {
+            rb.velocity = new Vector2(Direction * dashSpeed * Time.fixedDeltaTime * 20, rb.velocity.y);
+            yield return null;
+        }
+
+        // Ensure that the velocity is reset after the dash ends
+        rb.velocity = new Vector2(0f, rb.velocity.y);
+        isDashing = false;
     }
 
     private void UpdateAnimationState()
@@ -57,11 +81,13 @@ public class PlayerMovement : MonoBehaviour
         {
             state = MovementState.running;
             sprite.flipX = true;
+            Direction = 1;
         }
         else if (dirX < 0f)
         {
             state = MovementState.running;
             sprite.flipX = false;
+            Direction = -1;
         }
         else
         {
