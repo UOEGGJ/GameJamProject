@@ -76,8 +76,11 @@ public class PlayerMovement : MonoBehaviour
     private void UpdateAnimationState()
     {
         MovementState state;
-
-        if (dirX > 0f)
+        if (isDashing)
+        {
+            state = MovementState.dashing;
+        }
+        else if (dirX > 0f)
         {
             state = MovementState.running;
             sprite.flipX = true;
