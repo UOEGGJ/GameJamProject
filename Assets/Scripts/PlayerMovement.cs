@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float jumpForce = 14f;
 
-    private enum MovementState { idle, running, jumping, falling }
+    private enum MovementState { idle, running, jumping, falling, doublejump }
 
 
     // Start is called before the first frame update
@@ -71,6 +71,11 @@ public class PlayerMovement : MonoBehaviour
         if (rb.velocity.y > .1f)
         {
             state = MovementState.jumping;
+            if (rb.velocity.y > .1f && !canDoubleJump)
+            {
+                state = MovementState.doublejump;
+                Debug.Log("Double Jump");
+            }
         }
         else if (rb.velocity.y < -.1f)
         {
