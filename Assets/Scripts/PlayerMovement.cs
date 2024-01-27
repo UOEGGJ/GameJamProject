@@ -8,6 +8,8 @@ public class PlayerMovement : MonoBehaviour
     private BoxCollider2D coll;
     private SpriteRenderer sprite;
     private Animator anim;
+    private int jumpsRemaining = 2; // Set to 2 for double jump
+    private bool canDoubleJump = true;
 
     [SerializeField] private LayerMask jumpableGround;
 
@@ -36,6 +38,12 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        }
+        else if(Input.GetButtonDown("Jump") && canDoubleJump && jumpsRemaining > 0)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce); rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            canDoubleJump = false;
+            jumpsRemaining--;
         }
 
         UpdateAnimationState();
@@ -74,6 +82,11 @@ public class PlayerMovement : MonoBehaviour
 
     private bool IsGrounded()
     {
+        if(Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround))
+        {
+            jumpsRemaining = 2; // Reset jumps when grounded
+            canDoubleJump = true;
+        }
         return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
     }
 }
