@@ -14,11 +14,24 @@ public class PlayerLife : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Trap"))
         {
             Die();
+        }
+
+        if (collision.gameObject.CompareTag("Alt-Trap"))
+        {
+            collision.enabled = false;
+        }
+
+        if (collision.gameObject.CompareTag("Hidden-Trap"))
+        {
+
+            Debug.Log(collision.gameObject.name);
+            collision.gameObject.GetComponentInChildren<SpriteRenderer>().enabled = true;
+
         }
     }
 

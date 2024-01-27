@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Cherry
   - Trap
+  - Alt-Cherry
+  - Alt-Trap
+  - Hidden-Trap
   layers:
   - Default
   - TransparentFX
