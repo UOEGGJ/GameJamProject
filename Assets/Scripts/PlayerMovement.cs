@@ -18,11 +18,16 @@ public class PlayerMovement : MonoBehaviour
     private float dirX = 0f;
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float jumpForce = 14f;
-    [SerializeField] private float dashSpeed = 15f;
-    [SerializeField] private float dashDuration = 0.1f;
+    [SerializeField] private float dashSpeed = 40;
+    [SerializeField] private float dashDuration = 0.7f;
 
     private enum MovementState { idle, running, jumping, falling, doublejump, dashing }
 
+    [SerializeField] private AudioSource jumpSoundEffect;
+    [SerializeField] private AudioSource doubleJumpSoundEffect;
+    [SerializeField] private AudioSource dashSoundEffect;
+
+    public static bool isDoubleJump = false;
 
     // Start is called before the first frame update
     private void Start()
@@ -41,16 +46,19 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
+            jumpSoundEffect.Play();
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
-        else if(Input.GetButtonDown("Jump") && canDoubleJump && jumpsRemaining > 0)
+        else if(Input.GetButtonDown("Jump") && canDoubleJump && jumpsRemaining > 0 && isDoubleJump)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce); rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             canDoubleJump = false;
             jumpsRemaining--;
+            doubleJumpSoundEffect.Play();
         }
         if (Input.GetButtonDown("Dash"))
         {
+            dashSoundEffect.Play();
             StartCoroutine(Dash());
         }
 

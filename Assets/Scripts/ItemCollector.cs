@@ -8,6 +8,9 @@ public class ItemCollector : MonoBehaviour
     private Animator anim;
     public static bool keyEnabled = false;
 
+    [SerializeField] private AudioSource collectSoundEffect;
+    [SerializeField] private AudioSource deathSoundEffect;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -18,17 +21,20 @@ public class ItemCollector : MonoBehaviour
         Debug.Log("Collided with " + collision);
         if (collision.gameObject.CompareTag("Cherry"))
         {
+            collectSoundEffect.Play();
             Destroy(collision.gameObject);
         
         }
 
         if (collision.gameObject.CompareTag("Alt-Cherry"))
         {
+            deathSoundEffect.Play();
             Die();
 
         }
         if (collision.gameObject.CompareTag("key"))
         {
+            PlayerMovement.isDoubleJump = true;
             Destroy(collision.gameObject);
             keyEnabled = true;
 
