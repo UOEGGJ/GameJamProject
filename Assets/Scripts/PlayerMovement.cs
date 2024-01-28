@@ -72,6 +72,7 @@ public class PlayerMovement : MonoBehaviour
             Destroy(collision.gameObject);
             ItemCollector.keyEnabled = false;
         }
+        
     }
         
     private IEnumerator Dash()
