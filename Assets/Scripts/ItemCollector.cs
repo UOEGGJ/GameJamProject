@@ -20,7 +20,9 @@ public class ItemCollector : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //Debug.Log("Collided with " + collision);
+
+        Debug.Log("Collided with " + collision);
+
         if (collision.gameObject.CompareTag("Cherry"))
         {
             collectSoundEffect.Play();
@@ -34,7 +36,7 @@ public class ItemCollector : MonoBehaviour
             Die();
 
         }
-        if (collision.gameObject.CompareTag("key"))
+        if (collision.gameObject.CompareTag("Key"))
         {
             Debug.Log("yes, its key");
             PlayerMovement.isDoubleJump = true;
