@@ -29,7 +29,6 @@ public class PlayerLife : MonoBehaviour
         if (collision.gameObject.CompareTag("Hidden-Trap"))
         {
 
-            Debug.Log(collision.gameObject.name);
             collision.gameObject.GetComponentInChildren<SpriteRenderer>().enabled = true;
 
         }
