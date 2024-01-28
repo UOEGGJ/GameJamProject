@@ -57,6 +57,15 @@ public class PlayerMovement : MonoBehaviour
 
         UpdateAnimationState();
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Door")  && ItemCollector.keyEnabled)
+        {
+            Destroy(collision.gameObject);
+            ItemCollector.keyEnabled = false;
+        }
+    }
+        
     private IEnumerator Dash()
     {
         isDashing = true;
