@@ -1,16 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using JetBrains.Annotations;
 
 public class Dialogue : MonoBehaviour
 {
     public TextMeshProUGUI textMeshProUI;
-    public string[] lines;
+    public List<string> lines;
     public float textSpeed;
 
-    private int index;
+    private int index = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -54,7 +55,7 @@ public class Dialogue : MonoBehaviour
 
     void NextLine()
     {
-        if(index < lines.Length - 1)
+        if(index < lines.Count - 1)
         {
             index++;
             textMeshProUI.text = string.Empty;
@@ -62,7 +63,23 @@ public class Dialogue : MonoBehaviour
         }
         else
         {
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
+            ShowDialogCanvas(false);
+ 
+
         }
+    }
+
+    public void ShowDialogCanvas(bool show)
+    {
+        transform.GetComponent<Image>().enabled = show;
+        textMeshProUI.text = "";
+    }
+
+    public void AddDialogAndShow(string newDialog)
+    {
+        lines.Add(newDialog);
+        NextLine();
+        ShowDialogCanvas(true);
     }
 }
