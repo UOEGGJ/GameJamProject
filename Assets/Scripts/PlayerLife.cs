@@ -43,6 +43,7 @@ public class PlayerLife : MonoBehaviour
 
     private void RestartLevel()
     {
+        Debug.Log((SceneManager.GetActiveScene().name).ToString());
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

@@ -6,6 +6,7 @@ public class ItemCollector : MonoBehaviour
 {
     private Rigidbody2D rb;
     private Animator anim;
+    public static bool keyEnabled = false;
 
     private void Start()
     {
@@ -24,6 +25,12 @@ public class ItemCollector : MonoBehaviour
         if (collision.gameObject.CompareTag("Alt-Cherry"))
         {
             Die();
+
+        }
+        if (collision.gameObject.CompareTag("key"))
+        {
+            Destroy(collision.gameObject);
+            keyEnabled = true;
 
         }
     }
