@@ -31,10 +31,10 @@ public class CatDisappear : MonoBehaviour
         {
             GetComponent<SpriteRenderer>().enabled=true;
             yield return new WaitForSeconds(blinkInterval / 2f);
-            Debug.Log("Yes");
+            
             GetComponent<SpriteRenderer>().enabled = false;
             yield return new WaitForSeconds(blinkInterval / 2f);
-            Debug.Log("No");
+            
         }
     }
 

@@ -9,7 +9,7 @@ TagManager:
   - Alt-Cherry
   - Alt-Trap
   - Hidden-Trap
-  - key
+  - Key
   layers:
   - Default
   - TransparentFX

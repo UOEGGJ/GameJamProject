@@ -10,18 +10,15 @@ public class ItemCollector : MonoBehaviour
 
     [SerializeField] private AudioSource collectSoundEffect;
     [SerializeField] private AudioSource deathSoundEffect;
-    [SerializeField] private GameObject CatImage;
 
     private void Start()
     {
-        CatImage.SetActive(false);
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-        Debug.Log("Collided with " + collision);
 
         if (collision.gameObject.CompareTag("Cherry"))
         {
@@ -38,11 +35,11 @@ public class ItemCollector : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Key"))
         {
-            Debug.Log("yes, its key");
+            
             PlayerMovement.isDoubleJump = true;
             Destroy(collision.gameObject);
             keyEnabled = true;
-            CatImage.SetActive(true);
+           
 
 
         }

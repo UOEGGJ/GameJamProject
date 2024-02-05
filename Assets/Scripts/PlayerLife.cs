@@ -7,7 +7,6 @@ public class PlayerLife : MonoBehaviour
 {
     private Rigidbody2D rb;
     private Animator anim;
-    public Dialogue dialogue;
 
     [SerializeField] private AudioSource deathSoundEffect;
 
@@ -22,13 +21,11 @@ public class PlayerLife : MonoBehaviour
         if (collision.gameObject.CompareTag("Trap"))
         {
             deathSoundEffect.Play();
-            dialogue.AddDialogAndShow(" Ha ha ha!");
             Die();
         }
 
         if (collision.gameObject.CompareTag("Alt-Trap"))
         {
-            dialogue.AddDialogAndShow(" What did you think??");
             collision.enabled = false;
         }
 
@@ -48,7 +45,6 @@ public class PlayerLife : MonoBehaviour
 
     private void RestartLevel()
     {
-        Debug.Log((SceneManager.GetActiveScene().name).ToString());
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
